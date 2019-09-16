@@ -1,6 +1,8 @@
 {-# OPTIONS_GHC -Wall #-}
 module Golf where
 
+import Data.List
+
 -- Hopscotch
 
 skips :: [a] -> [[a]]
@@ -17,3 +19,22 @@ localMaxima [_, _] = []
 localMaxima (x:y:z:ns)
   | x < y && z < y = y:localMaxima(z:ns)
   | otherwise = localMaxima(y:z:ns)
+
+-- Histogram
+
+histogram :: [Integer] -> String
+histogram ns =
+  (buildGraph ns) ++ intercalate "\n" [border, indices]
+  where
+    buildGraph [] = ""
+    buildGraph xs = buildGraph(xs \\ (nub xs))  ++ row xs  ++ "\n"
+    border = (take 10 (repeat '='))
+    indices = "0123456789"
+    row :: [Integer] -> String
+    row [] = ""
+    row nums = map (plot . (flip elem nums)) [0..9] 
+       where
+        plot :: Bool -> Char
+        plot True = '*'
+        plot _ = ' '
+

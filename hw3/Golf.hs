@@ -26,12 +26,17 @@ histogram :: [Integer] -> String
 histogram ns =
   (buildGraph ns) ++ intercalate "\n" [border, indices]
   where
+    buildGraph :: [Integer] -> String
     buildGraph [] = ""
+    -- just take one instance of every number out and graph it
     buildGraph xs = buildGraph(xs \\ (nub xs))  ++ row xs  ++ "\n"
     border = (take 10 (repeat '='))
     indices = "0123456789"
+
     row :: [Integer] -> String
     row [] = ""
+    -- check if every integer 0..9 is inside of the list of nums
+    -- plot a * if it's in there, otherwise a space
     row nums = map (plot . (flip elem nums)) [0..9] 
        where
         plot :: Bool -> Char

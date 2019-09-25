@@ -24,7 +24,7 @@ localMaxima (x:y:z:ns)
 
 histogram :: [Integer] -> String
 histogram ns =
-  (buildGraph ns) ++ intercalate "\n" [border, indices]
+  (buildGraph ns) ++ intercalate "\n" [border, indices, ""]
   where
     buildGraph :: [Integer] -> String
     buildGraph [] = ""

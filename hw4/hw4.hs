@@ -35,7 +35,7 @@ data Tree a = Leaf
 --  2. The height between the right and left subtrees is <= 1
 -- foldTree :: [a] -> Tree a
 -- foldTree xs = foldr insert Leaf xs
-
+-- 
 -- insert :: a -> Tree a -> Tree a
 -- insert v Leaf = Node 0 Leaf v Leaf
 -- 
@@ -51,8 +51,6 @@ data Tree a = Leaf
 --     Node hl _ _ _ = left
 --     Node hr _ _ _ = right
 
-
-
 -- xor returns True iff there are an
 -- odd number of True values in the input list
 -- it does not matter how many False values
@@ -61,5 +59,13 @@ xor :: [Bool] -> Bool
 xor bs = foldr (/=) False bs
 
 -- implement map as a fold
--- map' :: (a -> b) -> [a] -> [b]
--- map' f = foldr f 
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x acc -> f x:acc) []
+
+-- implement foldl with foldr
+myFoldl :: (a -> b -> a) -> a -> [b] -> a
+myFoldl f base xs = foldr (flip f) base (reverse xs)
+
+-- Sieve of Sundaram
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n =  [4]

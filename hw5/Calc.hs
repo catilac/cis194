@@ -23,6 +23,22 @@ class Expr a where
   mul :: a -> a -> a
   add :: a -> a -> a
 
+class HasVars a where
+  var :: String -> a
+
+data VarExprT = Lit Integer
+              | Var String
+              | Add VarExprT
+              | Mul VarExprT
+
+instance HasVars VarExprT where
+  var = Var
+
+instance Expr VarExprT where
+  lit = _
+  add = _
+  mul = _
+
 -- instance Expr ExprT where
 --   lit = Lit
 --   add = Add
